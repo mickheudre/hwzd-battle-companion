@@ -1,28 +1,91 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <main>
+      <router-view/>
+    </main>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld,
-  },
 };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans:wght@400;400;600&display=swap');
+
+html {
+  height: 100%;
 }
+
+body {
+  background: white;
+  background-attachment: fixed;
+  height: 100%;
+  margin: 0px
+}
+
+#app {
+  font-family: 'Open Sans', sans-serif;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  margin: 0px auto;
+  background-color: white;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.page {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+button.btn-primary {
+    margin-top: 40px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-right: 32px;
+    padding-left: 32px;
+    background-color: black;
+    border-style: none;
+    border-radius: 2px;
+    color: white;
+    text-transform: uppercase;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.2);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.2);
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.2);
+}
+
+button.btn-primary:hover {
+    -webkit-box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.2);
+    -moz-box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.2);
+    box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.2);
+    transform: translateY(-1px);
+
+}
+
+button.btn-primary:active {
+    -webkit-box-shadow: 1px 1px 3px 3px rgba(0,0,0,0.25);
+    -moz-box-shadow: 1px 1px 3px 3px rgba(0,0,0,0.25);
+    box-shadow: 1px 1px 3px 3px rgba(0,0,0,0.25);
+    transform: translateY(1px);
+
+}
+
 </style>
