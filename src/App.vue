@@ -16,6 +16,7 @@ export default {
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans:wght@400;400;600&display=swap');
+@import '~animate.css/animate.min.css';
 
 html {
   height: 100%;
@@ -53,8 +54,25 @@ main {
   flex-direction: column;
 }
 
+button.btn-flat {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-right: 32px;
+    padding-left: 32px;
+    border-style: none;
+    background-color: white;
+    color: black;
+    text-transform: uppercase;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+button.btn-flat:hover {
+  text-decoration: underline;
+}
+
 button.btn-primary {
-    margin-top: 40px;
     padding-top: 16px;
     padding-bottom: 16px;
     padding-right: 32px;

@@ -2,11 +2,13 @@
 <div class="page">
   <div class="header">
       {{ nbCardsInDeck}} cards left
-      <button @click="save"> Save </button>
-      <button @click="resetGame"> Reset </button>
     </div>
   <div class="battlemat" >
-    <Card v-if="nbCardsInDeck > 0" :card="currentCard"/>
+    <transition mode="out-in"
+    enter-active-class="animated flipInY faster" leave-active-class="animated flipOutY faster">
+    <Card :key="`${currentCard.rank}${currentCard.suit}`"
+    v-if="nbCardsInDeck > 0" :card="currentCard"/>
+    </transition>
       <h1 v-if="nbCardsInDeck == 0">Game Over</h1>
       <div class="player" >
         <button class="btn-primary" @click="drawCard" v-if="nbCardsInDeck > 0">
@@ -30,22 +32,12 @@ export default {
   components: {
     Card,
   },
-  created() {
-    if (!this.$store.state.gameOngoing || this.nbCardsInDeck === 0) {
-      this.$store.commit('buildDeck');
-      this.$store.commit('DRAW_CARD');
-    }
-  },
   methods: {
     drawCard() {
       this.$store.commit('DRAW_CARD');
     },
-    save() {
-      this.$store.commit('saveGame');
-    },
     resetGame() {
-      this.$store.commit('resetGame');
-      this.$store.commit('drawCardFromDeck');
+      this.$store.commit('RESET_GAME');
     },
     startGame() {
       this.$store.commit('START_GAME');
@@ -84,6 +76,14 @@ export default {
     justify-content: center;
     align-items: center;
 
+}
+
+.player {
+  margin: 40px 10px;
+}
+
+.card {
+    animation-delay: none;
 }
 
 </style>

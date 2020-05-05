@@ -1,6 +1,11 @@
 <template>
-    <div class="card">
+    <div  class="card">
         <div class="card-content">
+          <!-- {{ rawCard }} -->
+          <!-- <div class="cardHeader">{{ rawCard }}</div> -->
+          <div class="cardBody">
+          <img class="card-img" :src='cardImage' />
+          <div class="cardHeader">{{ rawCard }}</div>
             <div class="title">
                 <h3> {{ cardTitle }} </h3>
             </div>
@@ -13,6 +18,7 @@
             </div>
             <div class="action" v-if="cardSecondaryAction != ''"> {{ cardSecondaryAction }}</div>
             </div>
+            </div>
         </div>
     </div>
 </template>
@@ -23,33 +29,69 @@ export default {
   props: ['card'],
   data() {
     return {
+      suits: ['♣️', '♦️', '♥️', '♠', 'J'],
+      ranks: ['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'],
       boggeyTypes: ['Grunt', 'Elite', 'Boss', 'Complication'],
-      actionTypes: ['Command', 'Technical', 'Support', 'Attack'],
+      actionTypes: ['Command', 'Technical', 'Support', 'Attack', 'Complication'],
       primaryAction: ['If the active boogey has LOS, then it attacks the nearest character to which it can draw LOS, then gains a support token'],
       secondaryAction: ['It moves towards the nearest hero and gains a support token.'],
     };
   },
   computed: {
     currentGrunt() {
-      if (this.card.value === -1) {
-        return 'Complication';
+      switch (this.card.rank) {
+        case 0:
+          return 'Complication';
+        case 1:
+          return 'Boss';
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+        case 10:
+          return 'Grunt';
+        case 11:
+        case 12:
+        case 13:
+          return 'Elite';
+        default:
+          return '';
       }
-      if (this.card.value === 1) {
-        return 'Boss';
-      }
-      if (this.card.value <= 9) {
-        return 'Grunt';
-      }
-      return 'Elite';
     },
     currentAction() {
-      return this.actionTypes[this.card.color];
+      return this.actionTypes[this.card.suit];
     },
     cardTitle() {
       if (this.currentGrunt === 'Complication') {
         return 'Complication';
       }
       return `${this.currentGrunt}  ${this.currentAction} Action`;
+    },
+    rawCard() {
+      return `${this.ranks[this.card.rank]}${this.suits[this.card.suit]}`;
+    },
+    cardImage() {
+      switch (this.currentAction) {
+        case 'Command':
+          // eslint-disable-next-line global-require
+          return require('@/assets/binoculars.png');
+        case 'Support':
+          // eslint-disable-next-line global-require
+          return require('@/assets/helicopter.png');
+        case 'Technical':
+          // eslint-disable-next-line global-require
+          return require('@/assets/technical.png');
+        case 'Attack':
+          // eslint-disable-next-line global-require
+          return require('@/assets/attack.png');
+        default:
+          // eslint-disable-next-line global-require
+          return require('@/assets/complication.png');
+      }
     },
     cardPrimaryAction() {
       let action = '';
@@ -115,42 +157,40 @@ export default {
 .card-content {
     background-color: #f3f3f3;
     height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.cardBody {
     display:flex;
     padding-right: 10px;
     padding-left: 10px;
     flex-direction: column;
     justify-content: center;
 }
-
-
 .title {
-    margin: 10px;
+    margin: 0px 10px;
 }
 
 .title h3 {
     font-family: 'Merriweather', serif;
-    font-size: 24px;
+    font-size: 20px;
     color: #272727;
-}
-
-.actions {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
+    margin: 0 0 10px 0;
 }
 
 .action {
-    font-size: 12px;
+    font-size: 10px;
     color: #272727;
-    margin: 10px;
+    margin: 0px 10px;
 }
 
 .main-divider {
-    margin: 10px;
+    margin: 5px 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    opacity: 0.7;
 }
 
 .divider {
@@ -169,8 +209,23 @@ export default {
     margin-right: 10px;
     margin-left: 10px;
     font-weight: 600;
+    font-size: 12px;
     display: flex;
     color: #707070
+}
+
+.card-img {
+  height: 100px;
+  mix-blend-mode: multiply;
+  margin-left: auto;
+  margin-right: auto;
+  margin: 20px auto 20px auto;
+  opacity: 0.7;
+}
+
+.cardHeader {
+  font-size: 12px;
+  margin: 0 10px;
 }
 
 </style>
